@@ -4,10 +4,10 @@ const Header = () => {
   return (
     <div className="header">
       <div className="header-content">
-        <h2>TCU Memory Game!</h2>
-        <h3>
+        <h1>TCU Memory Game!</h1>
+        <h2>
           To win the game, click on each image only once without repeating!
-        </h3>
+        </h2>
       </div>
     </div>
   );
