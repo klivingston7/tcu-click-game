@@ -1,11 +1,27 @@
 import React, { Component } from 'react';
 
 class Nav extends Component {
+  
   state = {
     score: 0,
     topScore: 0,
     message: 'Click an image to begin!'
   };
+
+  // update the current score count in the nav
+  updateCurrentScore = (newScore) => {
+    // set the new count as the count
+    this.setState({count: newScore});
+  }
+
+  updateTopScore = (newTop) => {
+    // if the new top score is higher than the current
+    if (newTop > this.state.topScore) {
+      // then set the state but you have to subtract 1
+      this.setState({topScore: newTop - 1})
+    }
+  }
+
   render() {
     return (
       <ul className="nav d-flex flex-column flex-md-row align-items-center">

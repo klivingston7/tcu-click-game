@@ -12,10 +12,26 @@ class Wrapper extends Component {
         message: 'Click an image to begin!',
         frogs
     };
+
+    // update the current score count in the nav
+    updateCurrentScore = (newScore) => {
+        // set the new count as the count
+        this.setState({ count: newScore });
+    }
+
+    updateTopScore = (newTop) => {
+        // if the new top score is higher than the current
+        if (newTop > this.state.topScore) {
+            // then set the state but you have to subtract 1
+            this.setState({ topScore: newTop - 1 })
+        }
+    }
     render() {
         return (
             <div>
-                <Nav />
+                <Nav
+                    updateCurrentScore={this.updateCurrentScore}
+                    updateTopScore={this.updateTopScore} />
                 <Header />
                 <main className="container">
                     <Main />

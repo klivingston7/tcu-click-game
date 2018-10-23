@@ -9,10 +9,18 @@ const shuffle = array =>
         .map(a => a[1]);
 
 
-export default class Main extends Component {
-    state = {
-        frogs
-    };
+class Main extends Component {
+
+    constructor(props) {
+        super(props);
+
+        // setting the state: score is at 1, pusheens is pulling in the pusheen json, and we have no selected pusheens yet
+        this.state = {
+            score: 1,
+            frogs,
+            selectedFrogs: []
+        };
+    }
 
     getFrogById = id => {
         return frogs.find(frog => frog.id === id);
@@ -20,16 +28,31 @@ export default class Main extends Component {
 
     handleClick = id => {
         console.log(id);
-        const frog = this.getFrogById(id);
+        const ID = this.getFrogById(id);
+
         let newFrogs = this.state.frogs;
-        newFrogs.forEach((f, index) => {
-            if (f.id === frog.id) {
-                f.clicked = true;
+        let oldFrogs = this.state.selectedFrogs;
+
+        let clicked = false;
+
+        oldFrogs.forEach(frog => {
+            if (frog.id === ID) {
+                clicked = true;
             }
-        });
-        this.setState({
-            frogs: newFrogs
         })
+        if (clicked) {
+            this.endGame();
+        }
+        else {
+            newFrogs.forEach(frog => {
+                if (frog.id === ID) {
+                    this.setState({ selectedFrogs: [...this.state.selectedFrogs, frog] });
+                    console.log(this.state.selectedFrogs);
+
+                    this.updateScore();
+                }
+            })
+        }
         this.shuffleFrogs();
     };
 
@@ -42,19 +65,38 @@ export default class Main extends Component {
         this.shuffleFrogs();
     }
 
+    updateScore = () => {
+        // set the new score
+        this.setState({score: this.state.score + 1});
+        // update the parent component's display
+        this.props.updateCurrentScore(this.state.score);
+        console.log("Score: " + this.state.score);
+    }
+
+    endGame = () => {
+        // push the current game score as the new top score 
+        this.props.updateTopScore(this.state.score);
+        // set the score back to 1 and the selected array to empty 
+        this.setState({score: 1, selectedFrogs: []});
+        // update the current score to 0
+        this.props.updateCurrentScore(0);
+    }
+
     render() {
         return this.state.frogs.map(frog => {
             return (
                 <div
-                className="frog-div"
-                onClick={() => this.handleClick(frog.id)}
-                key={frog.id}
-                alt={frog.id}>
-                   <img 
-                    className="frog"
+                    className="frog-div"
+                    onClick={() => this.handleClick(frog.id)}
+                    endGame={() => this.endGame}
+                    score={() => this.state.score}
                     key={frog.id}
-                    src={require(`../images/${frog.img}`)} // for ease, name images after ids in frogs.json
-                    alt={frog.id}
+                    alt={frog.id}>
+                    <img
+                        className="frog"
+                        key={frog.id}
+                        src={require(`../images/${frog.img}`)} // for ease, name images after ids in frogs.json
+                        alt={frog.id}
                     />
                 </div>
             );
@@ -62,3 +104,5 @@ export default class Main extends Component {
     }
 
 }
+
+export default Main;
