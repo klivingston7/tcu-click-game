@@ -8,9 +8,9 @@ class Nav extends Component {
   };
   render() {
     return (
-      <ul className="nav">
+      <ul className="nav d-flex flex-column flex-md-row align-items-center">
         <a href="/">
-          <li>TCU Click Game</li>
+        <img className="navImg" src="/static/media/2.3f2dd2bd.png" alt=""/>
         </a>
         <li className="begin">{this.state.message}</li>
         <li>

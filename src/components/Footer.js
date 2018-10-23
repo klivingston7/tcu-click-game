@@ -2,7 +2,7 @@ import React from 'react';
 
 function Footer() {
   return (
-    <div className="footer">
+    <footer className="footer text-center">
       <p className="footer">Kitt Livingston</p>
       <p className="footer">|</p>
       <img
@@ -10,7 +10,7 @@ function Footer() {
         src={require('../images/react.svg')}
         alt="react"
       />
-    </div>
+    </footer>
   );
 }
 

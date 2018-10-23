@@ -4,6 +4,11 @@
 
 /*  N A V  */
 
+.navImg {
+  max-height: 40px;
+  padding-right: 15px;
+}
+
 ul.nav {
   position: fixed;
   z-index: 10;
@@ -42,9 +47,13 @@ ul.nav li {
   text-align: center
 }
 
+.headerImg {
+  max-height: 120px;
+  padding-bottom: 10px;
+}
+
 .header h1 {
   margin: 0;
-  margin-bottom: 30px;
   font-size: 4rem
 }
 .header-content {
@@ -113,8 +122,6 @@ p.footer {
 img.footer {
   display: inline-block;
   position: relative;
-  top: 7px;
-  width: 24px;
   height: 24px;
 }
 
